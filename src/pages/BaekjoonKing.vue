@@ -13,7 +13,6 @@
         <div class="rank third">
           <div class="rank-box">
             <span class="rank-number">3</span>
-            <div class="rank-name">3등</div>
           </div>
         </div>
         <div class="user-name">code_master</div>
@@ -22,7 +21,7 @@
         <div class="rank second">
           <div class="rank-box">
             <span class="rank-number">2</span>
-            <div class="rank-name">준우승</div>
+            <div class="rank-name">우승</div>
           </div>
         </div>
         <div class="user-name">cau-gragas</div>
@@ -42,7 +41,6 @@
         <div class="rank fourth">
           <div class="rank-box">
             <span class="rank-number">4</span>
-            <div class="rank-name">4등</div>
           </div>
         </div>
         <div class="user-name">dev_legend</div>
@@ -182,8 +180,6 @@ export default {
   justify-content: center;
   gap: 40px;
 }
-
-/* ✅ 버튼 크기 조정 (랭킹 박스와 동일한 너비 150px) */
 .btn {
   width: 150px;
   height: 50px;
@@ -200,7 +196,6 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
-/* ✅ 버튼 Hover 효과 */
 .btn:hover {
   background: rgba(255, 255, 255, 0.4);
   box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);

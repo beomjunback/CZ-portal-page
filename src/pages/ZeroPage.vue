@@ -1,11 +1,9 @@
 <template>
   <div class="zp-container">
     <div class="content">
-      <!-- 페이지 전환 버튼 -->
       <button class="nav-button left" @click="prevPage" v-if="currentPage > 0">←</button>
       <button class="nav-button right" @click="nextPage" v-if="currentPage < sections.length - 1">→</button>
 
-      <!-- 현재 페이지의 섹션들 (3개씩 배치) -->
       <transition name="fade-in" mode="out-in">
         <div v-if="showContent" :key="currentPage" class="section-group">
           <div v-if="currentPage === 0" class = "logo-container">
@@ -30,7 +28,7 @@ export default {
   name: "ZeroPage",
   setup() {
     const currentPage = ref(0);
-    const showContent = ref(false); // 처음에는 숨김 상태
+    const showContent = ref(false);
 
     const sections = ref([
       [ // 페이지 1 (로고 포함된 Introduction)
@@ -100,19 +98,18 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-align: left; /* 모든 텍스트 왼쪽 정렬 */
+  text-align: left;
   padding: 100px 40px 40px;
   position: relative;
 }
 
-/* 개별 페이지에 3개의 섹션 배치 */
+
 .section-group {
   display: flex;
   flex-direction: column;
-  gap: 60px; /* 섹션 간격 */
+  gap: 60px;
 }
 
-/* 개별 섹션 */
 .section {
   width: 100%;
   max-width: 800px;
@@ -135,14 +132,14 @@ export default {
 
 .logo-container .box {
   position: relative;
-  width: 220px; /* 로고 크기에 맞춰 박스 크기 조정 */
+  width: 220px;
   height: 220px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #fff;
   border-radius: 20px;
-  overflow: hidden; /* 넘치는 부분 숨김 */
+  overflow: hidden;
 }
 
 
@@ -195,9 +192,9 @@ export default {
 
 /* ZP 로고 */
 .zp-logo {
-  width: 100%;  /* 부모 요소인 .box에 맞춤 */
+  width: 100%;
   height: 100%;
-  object-fit: contain; /* 이미지 비율 유지하면서 꽉 차도록 */
+  object-fit: contain;
 }
 
 
