@@ -41,27 +41,13 @@ export default {
         },
       ],
       [ // 페이지 2
-        {title: "Hackathons", content: "We organize hackathons where members can build projects and compete in teams."},
-        {title: "Workshops", content: "CLUG holds workshops covering cutting-edge technologies and development tools."},
+        {title: "Event - 친.만.바", content: "We organize hackathons where members can build projects and compete in teams."},
+        {title: "Event - 시.열.스", content: "CLUG holds workshops covering cutting-edge technologies and development tools."},
         {
-          title: "Open Source",
-          content: "We contribute to open-source projects and encourage collaboration in the community."
+          title: "STUDY",
+          content: "다양한 주제의 스터디를 "
         }
-      ],
-      [ // 페이지 3
-        {
-          title: "Networking",
-          content: "Connect with fellow developers and industry experts through our networking events."
-        },
-        {
-          title: "Tech Talks",
-          content: "Learn from experienced speakers who share insights on software engineering and technology."
-        },
-        {
-          title: "Career Support",
-          content: "We provide mentorship and career guidance to help our members succeed in tech."
-        }
-      ],
+      ]
     ]);
 
     const nextPage = () => {

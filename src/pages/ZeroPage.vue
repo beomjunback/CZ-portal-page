@@ -58,6 +58,16 @@ export default {
       ],
       [ // 페이지 4
         {
+          title: "Event - MT",
+          content: "말 그대로 MT 입니다!"
+        },
+        {
+          title: "Event - 나들이",
+          content: "동아리 회원들과 함께 어울리며 자연 속에서 휴식과 즐거움을 즐기는 특별한 야외 활동입니다. 맛있는 것들을 먹으며 친목을 다질 수 있는 기회입니다."
+        }
+      ],
+      [ // 페이지 5
+        {
           title: "More Info",
           content: "- 게시판\t: zeropage.org \n - 포탈\t: portal.zeropage.org \n - 위키\t:  wiki.zeropage.org"
         },
@@ -65,7 +75,7 @@ export default {
           title: "THANKS TO ZP지기",
           content: "감사하게도 ZeroPage 졸업 선배님들이 '지피지기'라는 이름으로 필요할 때마다 자금을 지원해주신 덕에 유익한 행사들을 많이 진행히였고, 앞으로도 유익한 행사를 개최할 것을 약속합니다."
         }
-      ]
+      ],
     ]);
 
     const nextPage = () => {

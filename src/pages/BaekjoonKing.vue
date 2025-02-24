@@ -5,54 +5,55 @@
     </transition>
 
     <transition name="fade-content">
-      <p v-if="show" class="subtitle">이번 주 시상 종목 : [가장 많은 문제] <br><br> Recent Top 4</p>
-    </transition>
-    <transition name="fade-content">
-    <div v-if="show" class="podium">
-      <div class="rank-container">
-        <div class="rank third">
-          <div class="rank-box">
-            <span class="rank-number">3</span>
-          </div>
-        </div>
-        <div class="user-name">code_master</div>
-      </div>
-      <div class="rank-container">
-        <div class="rank second">
-          <div class="rank-box">
-            <span class="rank-number">2</span>
-            <div class="rank-name">우승</div>
-          </div>
-        </div>
-        <div class="user-name">cau-gragas</div>
-      </div>
-
-      <div class="rank-container">
-        <div class="rank first">
-          <div class="rank-box">
-            <span class="rank-number">1</span>
-            <div class="rank-name">우승</div>
-          </div>
-        </div>
-        <div class="user-name">whisky killer</div>
-      </div>
-
-      <div class="rank-container">
-        <div class="rank fourth">
-          <div class="rank-box">
-            <span class="rank-number">4</span>
-          </div>
-        </div>
-        <div class="user-name">dev_legend</div>
-      </div>
-    </div>
+      <p v-if="show" class="subtitle">이번 주 시상 종목 : <span class="highlight">[Rating 상승 폭]</span> <br><br> <span class="highlight">Current Top 4</span></p>
     </transition>
 
     <transition name="fade-content">
-    <footer v-if="show" class="footer">
-      <router-link to="/sign" class="btn">참여하기</router-link>
-      <router-link to="/rank" class="btn">Ranking</router-link>
-    </footer>
+      <div v-if="show" class="podium">
+        <div class="rank-container">
+          <div class="rank third">
+            <div class="rank-box">
+              <span class="rank-number">3</span>
+            </div>
+          </div>
+          <div class="user-name">code_master</div>
+        </div>
+
+        <div class="rank-container">
+          <div class="rank second">
+            <div class="rank-box">
+              <span class="rank-number">2</span>
+            </div>
+          </div>
+          <div class="user-name">cau-gragas</div>
+        </div>
+
+        <div class="rank-container">
+          <div class="rank first">
+            <div class="rank-box">
+              <span class="rank-number">1</span>
+            </div>
+          </div>
+          <div class="user-name">whisky killer</div>
+        </div>
+
+        <div class="rank-container">
+          <div class="rank fourth">
+            <div class="rank-box">
+              <span class="rank-number">4</span>
+            </div>
+          </div>
+          <div class="user-name">dev_legend</div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="fade-content">
+      <footer v-if="show" class="footer">
+        <router-link to="/sign" class="btn">참여하기</router-link>
+        <router-link to="/rank" class="btn">역대 우승자</router-link>
+        <router-link to="/current-rank" class="btn">현재 순위</router-link>
+      </footer>
     </transition>
 
   </div>
@@ -67,7 +68,7 @@ export default {
     const show = ref(false);
 
     onMounted(() => {
-      show.value = true; // 페이지가 로드되면 애니메이션 실행
+      show.value = true;
     });
 
     return { show };
@@ -75,8 +76,9 @@ export default {
 };
 </script>
 
-
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Noto+Sans+KR:wght@400;700&display=swap');
+
 .ranking-container {
   display: flex;
   flex-direction: column;
@@ -87,12 +89,19 @@ export default {
   text-align: center;
   position: relative;
   padding-bottom: 80px;
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
 }
 
 .subtitle {
   font-size: 1.2rem;
   opacity: 0.8;
   margin-bottom: 40px;
+}
+
+.highlight {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #ffd700;
 }
 
 .podium {
@@ -109,16 +118,15 @@ export default {
 }
 
 .rank {
-  width: 150px;
-  height: 250px;
+  width: 140px;
+  height: 230px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   text-align: center;
   transition: all 0.3s ease-in-out;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .rank-box {
@@ -131,47 +139,41 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 10px;
-}
-
-.rank-name {
-  font-size: 1.2rem;
-  font-weight: 600;
-  opacity: 0.9;
+  color: white;
 }
 
 .user-name {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  margin-top: 30px;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient 8s linear infinite;
-  background-size: 300%;
+  margin-top: 20px;
+  color: white;
 }
 
 .first {
-  height: 300px;
-  background: rgba(255, 200, 0, 0.6);
+  height: 280px;
+  background: linear-gradient(145deg, #b8860b, #8b6914);
+  box-shadow: 0 10px 30px rgba(184, 134, 11, 0.2);
 }
 
 .second {
-  height: 260px;
-  background: rgba(255, 192, 192, 0.6);
+  height: 250px;
+  background: linear-gradient(145deg, #808080, #696969);
+  box-shadow: 0 10px 30px rgba(128, 128, 128, 0.2);
 }
 
 .third {
   height: 220px;
-  background: rgba(192, 192, 255, 0.6);
+  background: linear-gradient(145deg, #8b5a2b, #6f4f28);
+  box-shadow: 0 10px 30px rgba(139, 90, 43, 0.2);
 }
 
 .fourth {
   height: 190px;
-  background: rgba(192, 255, 192, 0.6);
+  background: linear-gradient(145deg, #4f6272, #3c4a57);
+  box-shadow: 0 10px 30px rgba(79, 98, 114, 0.2);
 }
 
-/* ✅ Footer 스타일 - 버튼을 1~4등 상자와 일치 */
+
 .footer {
   position: absolute;
   bottom: 20px;
@@ -180,6 +182,7 @@ export default {
   justify-content: center;
   gap: 40px;
 }
+
 .btn {
   width: 150px;
   height: 50px;
@@ -200,6 +203,7 @@ export default {
   background: rgba(255, 255, 255, 0.4);
   box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
 }
+
 .fade-title-enter-active {
   transition: opacity 1s ease, transform 0.8s ease;
 }
@@ -216,4 +220,3 @@ export default {
   transform: translateY(10px);
 }
 </style>
-

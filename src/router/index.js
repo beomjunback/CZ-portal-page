@@ -8,6 +8,7 @@ import ZeroPage from '@/pages/ZeroPage.vue';
 import Clug from '@/pages/Clug.vue';
 import Sign from '@/pages/SignEvent.vue';
 import Ranking from '@/pages/Ranking.vue';
+import CurrentRanking from '@/pages/CurrentRanking.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -19,6 +20,7 @@ const routes = [
     { path: '/articles', component: Articles },
     { path: '/sign', component: Sign },
     { path: '/rank', component: Ranking},
+    { path: '/current-rank', component:CurrentRanking},
 ];
 
 const router = createRouter({
