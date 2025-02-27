@@ -1,7 +1,9 @@
 <template>
   <div class="notice-container">
     <transition name="fade-title">
-      <h1 v-if="show" class="title">📢 NOTICES 📢</h1>
+      <h1 v-if="show" class="title">
+        NOTICES
+      </h1>
     </transition>
 
     <transition name="fade-content">
@@ -37,7 +39,7 @@
                   <span class="status-text">{{ selectedNotice.flag === 1 ? '진행' : '종료' }}</span>
                 </p>
               </div>
-              <p class="detail-text">{{ selectedNotice.content }}</p>
+              <p class="detail-text" v-html="formattedContent"></p>
             </div>
             <p v-else key="placeholder" class="detail-placeholder">공지사항을 선택하세요.</p>
           </transition>
@@ -52,6 +54,11 @@ import {ref, onMounted} from "vue";
 
 export default {
   name: "Notice",
+  computed: {
+    formattedContent() {
+      return this.selectedNotice ? this.selectedNotice.content.replace(/\n/g, '<br>') : "";
+    }
+  },
   setup() {
     const show = ref(false);
 
@@ -112,6 +119,13 @@ export default {
   margin-bottom: 30px;
 }
 
+.emoji {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+
 /* 공지사항 컨테이너 */
 .notice-content {
   display: flex;
@@ -129,6 +143,23 @@ export default {
   overflow-y: auto;
   height: 100%;
   box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+.notice-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notice-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notice-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.notice-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .notice-item {
@@ -169,6 +200,23 @@ export default {
   overflow-y: auto;
   height: 100%;
   box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+.notice-detail::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notice-detail::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notice-detail::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.notice-detail::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .detail-header {

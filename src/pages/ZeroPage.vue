@@ -1,8 +1,8 @@
 <template>
   <div class="zp-container">
     <div class="content">
-      <button class="nav-button left" @click="prevPage" v-if="currentPage > 0">←</button>
-      <button class="nav-button right" @click="nextPage" v-if="currentPage < sections.length - 1">→</button>
+      <button class="nav-button left" @click="prevPage" v-if="currentPage > 0"> < </button>
+      <button class="nav-button right" @click="nextPage" v-if="currentPage < sections.length - 1"> > </button>
 
       <transition name="fade-in" mode="out-in">
         <div v-if="showContent" :key="currentPage" class="section-group">
@@ -40,7 +40,7 @@ export default {
       [ // 페이지 2
         {title: "Event - OMS", content: "OMS(Open Micro Seminar)는 매주 정기 모임에서 진행되는 짧은 세미나로, 자유로운 주제로 발표합니다. 이를 통해 회원들은 정보 공유, 프레젠테이션 경험 축적, 그리고 상호 이해 증진을 목표로 합니다."},
         {title: "Event - 새싹교실, CodeRace", content: "선후배간의 친목을 도모하는 수업형 행사입니다.\n 관심 분야별 클래스를 진행하여 처음 프로그래밍을 접하는 새내기들뿐만 아니라 새싹 교실의 선생들도 배움을 얻어가는 자리입니다."},
-        {title: "Event - EngelsCamp", content: "평소에 아디이어가 떠올라서 만들었으면 좋겠다라는 생각은 했으나 시도하지 못 했던 것들을 시도하는 무박 2일 해커톤입니다. 실력은 무관합니다. 경험을 얻어가는 것이 중요합니다."}
+        {title: "Event - EngelsCamp", content: "평소에 아디이어가 떠올랐으나 시도하지 못 했던 것들을 시도하는 무박 2일 해커톤입니다. 실력은 무관합니다. 경험을 얻어가는 것이 중요합니다."}
       ],
       [ // 페이지 3
         {

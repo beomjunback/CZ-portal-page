@@ -1,7 +1,7 @@
 <template>
   <div class="ranking-container">
     <transition name="fade-title">
-      <h1 v-if="show" class="title">🏆 Baekjoon King 🏆</h1>
+      <h1 v-if="show" class="title">Baekjoon King</h1>
     </transition>
 
     <transition name="fade-content">

@@ -10,7 +10,7 @@
     </div>
     <transition name="fade-content">
       <footer v-if="show" class="footer">
-        <div class="footer-left">Tel. 010-5272-0103</div>
+        <div class="footer-left"></div>
         <div class="footer-right">Developed by BeomJun Baek</div>
       </footer>
     </transition>

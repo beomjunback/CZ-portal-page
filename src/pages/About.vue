@@ -26,7 +26,7 @@
 
     <transition name="fade-opacity">
       <button v-if="selectedClub" class="next-button fade-in" @click="goToClubPage">
-        →
+        ?
       </button>
     </transition>
   </div>
