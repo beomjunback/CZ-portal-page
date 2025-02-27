@@ -13,10 +13,22 @@
     <transition name="fade-content">
       <div v-if="show" class="form-container">
         <label for="baekjoon-id" class="form-label">백준 아이디</label>
-        <input type="text" id="baekjoon-id" class="form-input" v-model="baekjoonId" placeholder="Enter your Baekjoon ID" />
+        <input
+          type="text"
+          id="baekjoon-id"
+          class="form-input"
+          v-model="baekjoonId"
+          placeholder="Enter your Baekjoon ID"
+        />
 
         <label for="nickname" class="form-label">닉네임</label>
-        <input type="text" id="nickname" class="form-input" v-model="nickname" placeholder="Enter your nickname" />
+        <input
+          type="text"
+          id="nickname"
+          class="form-input"
+          v-model="nickname"
+          placeholder="Enter your nickname"
+        />
 
         <button class="submit-btn" @click="startEvent">시작하기</button>
       </div>
@@ -25,17 +37,16 @@
 </template>
 
 <script>
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
+import axios from "axios";
 
 export default {
   name: "SignEvent",
   setup() {
     const show = ref(false);
-
     onMounted(() => {
-      show.value = true; // 페이지가 로드되면 애니메이션 실행
+      show.value = true; // 페이지 로드시 애니메이션 실행
     });
-
     return { show };
   },
   data() {
@@ -50,13 +61,47 @@ export default {
         alert("모든 항목을 입력해주세요!");
         return;
       }
-      alert(`이벤트 시작! 백준 ID: ${this.baekjoonId}, 닉네임: ${this.nickname}`);
+      
+      const payload = {
+        username: this.baekjoonId, // 백엔드 DTO의 username 필드에 매핑
+        nickname: this.nickname
+      };
+
+      axios
+        .post("https://czportal.site/api/infos/post", payload)
+        .then(response => {
+          alert("정보가 성공적으로 등록되었습니다.");
+          console.log(response.data);
+        })
+        .catch(error => {
+          // error.response.data가 존재하는 경우 에러코드에 따른 예외처리
+          if (error.response && error.response.data && error.response.data.code) {
+            const code = error.response.data.code;
+            switch (code) {
+              case "MEMBER4003":
+                alert("사용자가 없습니다.");
+                break;
+              case "MEMBER4002":
+                alert("닉네임은 필수 입니다.");
+                break;
+              case "MEMBER4004":
+                alert("이미 존재하는 사용자입니다.");
+                break;
+              default:
+                alert("정보 등록 중 오류가 발생했습니다. 백준 아이디를 확인해주세요!");
+            }
+          } else {
+            alert("정보 등록 중 오류가 발생했습니다. 백준 아이디를 확인해주세요!");
+          }
+          console.error(error);
+        });
     }
   }
 };
 </script>
 
 <style scoped>
+/* 기존 스타일 그대로 유지 */
 .sign-container {
   display: flex;
   flex-direction: column;

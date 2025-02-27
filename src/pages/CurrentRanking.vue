@@ -1,29 +1,27 @@
 <template>
   <div class="ranking-container">
     <div class="header">
-      <transition  name="fade-title">
+      <transition name="fade-title">
         <h1 v-if="show" class="title">Current Ranking</h1>
       </transition>
-
-      <transition  name="fade-content">
+      <transition name="fade-content">
         <h2 v-if="show" class="subtitle">This Week's Top Performers</h2>
       </transition>
     </div>
 
-    <transition  name="fade-content">
+    <transition name="fade-content">
       <div v-if="show" class="ranking-list">
-        <div
-            v-for="(user, index) in users"
-            :key="user.id"
-            class="ranking-item"
-        >
+        <div v-for="(user, index) in users" :key="user.username" class="ranking-item">
           <div class="rank-info">
             <span class="rank">#{{ index + 1 }}</span>
-            <span class="username">{{ user.name }}</span>
-            <span class="score">{{ user.score }}</span>
+            <!-- 닉네임으로 표시 -->
+            <span class="username">{{ user.nickname }}</span>
+            <!-- ratingDiff 값 표시 -->
+            <span class="score">{{ user.ratingDiff }}</span>
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" :style="{ width: (user.score / maxScore * 100) + '%' }"></div>
+            <!-- 숫자형으로 변환 후 최대값과 비교하여 프로그레스바 계산 -->
+            <div class="progress-fill" :style="{ width: (Number(user.ratingDiff) / maxRatingDiff * 100) + '%' }"></div>
           </div>
         </div>
       </div>
@@ -32,28 +30,34 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted } from 'vue';
 
 export default {
   name: "CurrentRanking",
   setup() {
-    const users = ref(
-        Array.from({ length: 20 }, (_, i) => ({
-          id: i + 1,
-          name: `User ${i + 1}`,
-          score: Math.floor(Math.random() * 2000) + 1000,
-        })).sort((a, b) => b.score - a.score)
-    );
-
-    const maxScore = ref(users.value[0].score);
-
+    const users = ref([]);
+    const maxRatingDiff = ref(0);
     const show = ref(false);
 
-    onMounted(() => {
-      show.value = true; // 페이지가 로드되면 애니메이션 실행
+    onMounted(async () => {
+      show.value = true;
+      try {
+        const response = await fetch("https://czportal.site/api/infos/all");
+        const data = await response.json();
+        if (data.isSuccess && data.result) {
+          // ratingDiff는 문자열이므로 숫자로 변환하여 내림차순 정렬
+          users.value = data.result.sort(
+            (a, b) => Number(b.ratingDiff) - Number(a.ratingDiff)
+          );
+          // 최대 ratingDiff 값을 추출 (첫번째 요소가 가장 큰 값)
+          maxRatingDiff.value = Number(users.value[0].ratingDiff);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     });
 
-    return { show, users, maxScore };
+    return { show, users, maxRatingDiff };
   },
 };
 </script>

@@ -5,45 +5,27 @@
     </transition>
 
     <transition name="fade-content">
-      <p v-if="show" class="subtitle">이번 주 시상 종목 : <span class="highlight">[Rating 상승 폭]</span> <br><br> <span class="highlight">Current Top 4</span></p>
+      <p v-if="show" class="subtitle">
+        이번 주 시상 종목 : <span class="highlight">[Rating 상승 폭]</span> <br /><br />
+        <span class="highlight">Current Top 4</span>
+      </p>
     </transition>
 
     <transition name="fade-content">
       <div v-if="show" class="podium">
-        <div class="rank-container">
-          <div class="rank third">
+        <!-- podium 순서는: 왼쪽부터 3등, 2등, 1등, 4등 -->
+        <div
+          v-for="(user, index) in podiumOrder"
+          :key="user.username"
+          class="rank-container"
+        >
+          <div :class="['rank', rankClasses[index]]">
             <div class="rank-box">
-              <span class="rank-number">3</span>
+              <!-- index 매핑: 0 -> 3등, 1 -> 2등, 2 -> 1등, 3 -> 4등 -->
+              <span class="rank-number">{{ [3, 2, 1, 4][index] }}</span>
             </div>
           </div>
-          <div class="user-name">code_master</div>
-        </div>
-
-        <div class="rank-container">
-          <div class="rank second">
-            <div class="rank-box">
-              <span class="rank-number">2</span>
-            </div>
-          </div>
-          <div class="user-name">cau-gragas</div>
-        </div>
-
-        <div class="rank-container">
-          <div class="rank first">
-            <div class="rank-box">
-              <span class="rank-number">1</span>
-            </div>
-          </div>
-          <div class="user-name">whisky killer</div>
-        </div>
-
-        <div class="rank-container">
-          <div class="rank fourth">
-            <div class="rank-box">
-              <span class="rank-number">4</span>
-            </div>
-          </div>
-          <div class="user-name">dev_legend</div>
+          <div class="user-name">{{ user.nickname }}</div>
         </div>
       </div>
     </transition>
@@ -55,24 +37,63 @@
         <router-link to="/current-rank" class="btn">현재 순위</router-link>
       </footer>
     </transition>
-
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 
 export default {
   name: "BaekjoonKing",
   setup() {
     const show = ref(false);
+    const rankingData = ref([]);
 
-    onMounted(() => {
+    // API 호출 함수
+    const fetchRankings = async () => {
+      try {
+        const response = await fetch("https://czportal.site/api/infos/all");
+        const data = await response.json();
+        rankingData.value = data.result;
+      } catch (error) {
+        console.error("Error fetching rankings:", error);
+      }
+    };
+
+    onMounted(async () => {
       show.value = true;
+      await fetchRankings();
     });
 
-    return { show };
-  },
+    // ratingDiff 기준 내림차순 정렬 (숫자로 변환)
+    const sortedRankings = computed(() => {
+      return rankingData.value.slice().sort((a, b) => {
+        return Number(b.ratingDiff) - Number(a.ratingDiff);
+      });
+    });
+
+    // podium 순서: 기존 하드 코딩 순서(왼쪽부터 3등, 2등, 1등, 4등)
+    const podiumOrder = computed(() => {
+      if (sortedRankings.value.length < 4) {
+        return sortedRankings.value;
+      }
+      return [
+        sortedRankings.value[2], // 3등
+        sortedRankings.value[1], // 2등
+        sortedRankings.value[0], // 1등
+        sortedRankings.value[3]  // 4등
+      ];
+    });
+
+    // podium에 사용할 클래스 배열 (순서에 맞게)
+    const rankClasses = ["third", "second", "first", "fourth"];
+
+    return {
+      show,
+      podiumOrder,
+      rankClasses
+    };
+  }
 };
 </script>
 
@@ -172,7 +193,6 @@ export default {
   background: linear-gradient(145deg, #4f6272, #3c4a57);
   box-shadow: 0 10px 30px rgba(79, 98, 114, 0.2);
 }
-
 
 .footer {
   position: absolute;
